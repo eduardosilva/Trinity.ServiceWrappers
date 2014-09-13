@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers", "Trinity.ServiceWrappers.csproj", "{20EFC49A-3B66-493F-A506-646E86DF7F67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers", "Trinity.ServiceWrappers\Trinity.ServiceWrappers.csproj", "{20EFC49A-3B66-493F-A506-646E86DF7F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.Tests", "..\Trinity.ServiceWrappers.Tests\Trinity.ServiceWrappers.Tests.csproj", "{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.Tests", "Trinity.ServiceWrappers.Tests\Trinity.ServiceWrappers.Tests.csproj", "{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

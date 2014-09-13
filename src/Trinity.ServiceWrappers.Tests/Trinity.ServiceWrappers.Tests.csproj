@@ -62,7 +62,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Trinity.ServiceWrappers.csproj">
+    <ProjectReference Include="..\Trinity.ServiceWrappers\Trinity.ServiceWrappers.csproj">
       <Project>{20efc49a-3b66-493f-a506-646e86df7f67}</Project>
       <Name>Trinity.ServiceWrappers</Name>
     </ProjectReference>

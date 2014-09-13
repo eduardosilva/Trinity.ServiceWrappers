@@ -9,7 +9,7 @@ namespace Trinity.ServiceWrappers.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            new ServiceWrapper<IServiceTest>().Use(s => s.Test());
+
         }
     }
 }

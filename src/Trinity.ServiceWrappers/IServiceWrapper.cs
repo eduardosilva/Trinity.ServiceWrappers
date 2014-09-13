@@ -14,6 +14,7 @@ namespace Trinity.ServiceWrappers
     }
 
     public interface IServiceWrapper<T> : IServiceWrapper
+        where T : class
     {
         void Use(UseServiceDelegate<T> codeBlock);
         R Use<R>(UseServiceDelegate<T, R> codeBlock);

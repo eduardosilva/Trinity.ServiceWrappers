@@ -4,6 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers", "Trinity.ServiceWrappers\Trinity.ServiceWrappers.csproj", "{20EFC49A-3B66-493F-A506-646E86DF7F67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.Tests", "Trinity.ServiceWrappers.Tests\Trinity.ServiceWrappers.Tests.csproj", "{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{8C3C32D3-70D3-461B-A4AF-40E99D22D7DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.ExamplesServices", "Examples\Trinity.ServiceWrappers.ExamplesServices\Trinity.ServiceWrappers.ExamplesServices.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.ExamplesServices.Contracts", "Examples\Trinity.ServiceWrappers.ExamplesServices.Contracts\Trinity.ServiceWrappers.ExamplesServices.Contracts.csproj", "{48070EA1-3210-4C26-9CCC-593B2F74D630}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trinity.ServiceWrappers.ExamplesClient", "Examples\Trinity.ServiceWrappers.ExamplesClient\Trinity.ServiceWrappers.ExamplesClient.csproj", "{C799436E-BF74-44AF-9520-4B325A49417A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +30,25 @@ Global
 		{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFDB5CF6-EF88-4C7A-9433-BA826578BD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B3E0D2-6217-493A-A690-158C497F5318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48070EA1-3210-4C26-9CCC-593B2F74D630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48070EA1-3210-4C26-9CCC-593B2F74D630}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48070EA1-3210-4C26-9CCC-593B2F74D630}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48070EA1-3210-4C26-9CCC-593B2F74D630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C799436E-BF74-44AF-9520-4B325A49417A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C799436E-BF74-44AF-9520-4B325A49417A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C799436E-BF74-44AF-9520-4B325A49417A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C799436E-BF74-44AF-9520-4B325A49417A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {8C3C32D3-70D3-461B-A4AF-40E99D22D7DB}
+		{48070EA1-3210-4C26-9CCC-593B2F74D630} = {8C3C32D3-70D3-461B-A4AF-40E99D22D7DB}
+		{C799436E-BF74-44AF-9520-4B325A49417A} = {8C3C32D3-70D3-461B-A4AF-40E99D22D7DB}
 	EndGlobalSection
 EndGlobal

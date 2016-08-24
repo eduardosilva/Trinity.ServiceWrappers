@@ -37,7 +37,7 @@ namespace Trinity.ServiceWrappers
             if (messageHeaders == null)
                 throw new ArgumentNullException("messageHeaders");
 
-            return new ServiceWrapper<T>() { UserName = userName, MessageHeaders = messageHeaders };
+            return new ServiceWrapper<T>() { ServiceCredential = userName, MessageHeaders = messageHeaders };
         }
     }
 }

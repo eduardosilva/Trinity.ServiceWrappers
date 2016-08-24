@@ -17,8 +17,8 @@ namespace Trinity.ServiceWrappers
         where T : class
     {
         void Use(UseServiceDelegate<T> codeBlock);
-        void Use(string endpointConfigurationName, UseServiceDelegate<T> codeBlock);
+        void Use(string endpointName, UseServiceDelegate<T> codeBlock);
         R Use<R>(UseServiceDelegate<T, R> codeBlock);
-        R Use<R>(string endpointConfigurationName, UseServiceDelegate<T, R> codeBlock);
+        R Use<R>(string endpointName, UseServiceDelegate<T, R> codeBlock);
     }
 }

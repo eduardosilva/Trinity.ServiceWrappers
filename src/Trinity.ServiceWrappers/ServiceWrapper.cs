@@ -13,104 +13,112 @@ namespace Trinity.ServiceWrappers
     public class ServiceWrapper<T> : IServiceWrapper<T>
         where T : class
     {
-        internal UserNamePasswordClientCredential UserName { get; set; }
+        internal UserNamePasswordClientCredential ServiceCredential { get; set; }
         internal IEnumerable<MessageHeader> MessageHeaders { get; set; }
+
+        private IClientChannel proxy;
+        private bool successfullyExecutedService = false;
 
         public ServiceWrapper()
         {
             MessageHeaders = new List<MessageHeader>();
         }
 
-        public void Use(string endpointConfigurationName, UseServiceDelegate<T> codeBlock)
+        public void Use(string endpointName, UseServiceDelegate<T> codeBlock)
         {
-            var proxy = GetProxy(endpointConfigurationName);
+            CreateProxy(endpointName);
 
             using (var scope = new OperationContextScope(proxy))
             {
-                foreach (var messageHeander in MessageHeaders)
-                    OperationContext.Current.OutgoingMessageHeaders.Add(messageHeander);
+                ConfigureCurrentOperationScope();
 
-                bool success = false;
                 try
                 {
+                    successfullyExecutedService = false;
                     codeBlock((T)proxy);
-                    proxy.Close();
-                    success = true;
+                    CloseProxy();
                 }
-                finally
-                {
-                    if (!success)
-                        proxy.Abort();
-                }
+                finally { FinallyProxy(); }
             }
         }
 
         public void Use(UseServiceDelegate<T> codeBlock)
         {
-            Use(endpointConfigurationName: typeof(T).FullName, codeBlock: codeBlock);
+            Use(endpointName: typeof(T).FullName, codeBlock: codeBlock);
         }
 
-        public R Use<R>(string endpointConfigurationName, UseServiceDelegate<T, R> codeBlock)
+        public R Use<R>(string endpointName, UseServiceDelegate<T, R> codeBlock)
         {
-            var proxy = GetProxy(endpointConfigurationName);
+            CreateProxy(endpointName);
 
             using (var scope = new OperationContextScope(proxy))
             {
-                foreach (var messageHeander in MessageHeaders)
-                    OperationContext.Current.OutgoingMessageHeaders.Add(messageHeander);
+                ConfigureCurrentOperationScope();
 
-                bool success = false;
                 try
                 {
+                    successfullyExecutedService = false;
+
                     var result = codeBlock((T)proxy);
-                    proxy.Close();
-                    success = true;
+                    CloseProxy();
                     return result;
                 }
-                finally
-                {
-                    if (!success)
-                        proxy.Abort();
-                }
+                finally{ FinallyProxy(); }
             }
         }
 
         public R Use<R>(UseServiceDelegate<T, R> codeBlock)
         {
-            return Use<R>(endpointConfigurationName: typeof(T).FullName, codeBlock: codeBlock);
+            return Use<R>(endpointName: typeof(T).FullName, codeBlock: codeBlock);
         }
 
-        private IClientChannel GetProxy(string endpointConfigurationName)
+        private void CreateProxy(string endpointName)
         {
-            IClientChannel proxy = null;
             try
             {
-                var channelFactory = GetChannelFactory(endpointConfigurationName);
+                var channelFactory = GetChannelFactory(endpointName);
                 proxy = (IClientChannel)channelFactory.CreateChannel();
 
             }
             catch (TypeInitializationException ex)
             {
-                var error = String.Format("Was not found a endpoint in the config file with a {0} name for interface {i}", endpointConfigurationName, typeof(T).ToString());
+                var error = String.Format("It was not found an endpoint name {0} in the config file to the {1} interface.", endpointName, typeof(T));
                 throw new TypeInitializationException(error, ex);
             }
-            return proxy;
         }
 
-        private ChannelFactory<T> GetChannelFactory(string endpointConfigurationName)
+        private ChannelFactory<T> GetChannelFactory(string endpointName)
         {
-            if (String.IsNullOrWhiteSpace(endpointConfigurationName))
+            if (String.IsNullOrWhiteSpace(endpointName))
                 throw new ArgumentNullException("endpointConfigurationName");
 
-            var channelFactory = new ChannelFactory<T>(endpointConfigurationName);
+            var channelFactory = new ChannelFactory<T>(endpointName);
 
-            if (UserName != null)
+            if (ServiceCredential != null)
             {
-                channelFactory.Credentials.UserName.UserName = UserName.UserName;
-                channelFactory.Credentials.UserName.Password = UserName.Password;
+                channelFactory.Credentials.UserName.UserName = ServiceCredential.UserName;
+                channelFactory.Credentials.UserName.Password = ServiceCredential.Password;
             }
 
             return channelFactory;
+        }
+
+        private void ConfigureCurrentOperationScope()
+        {
+            foreach (var messageHeader in MessageHeaders)
+                OperationContext.Current.OutgoingMessageHeaders.Add(messageHeader);
+        }
+
+        private void CloseProxy()
+        {
+            proxy.Close();
+            successfullyExecutedService = true;
+        }
+
+        private void FinallyProxy()
+        {
+            if (!successfullyExecutedService)
+                proxy.Abort();
         }
     }
 }
